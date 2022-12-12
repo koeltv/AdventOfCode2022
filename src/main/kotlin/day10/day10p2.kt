@@ -5,11 +5,10 @@ import java.io.File
 class CRT {
     private val pixels = MutableList(240) { ' ' }
 
-    fun draw(cycleCount: Int, register: Int) {
+    fun draw(cycleCount: Int, spritePosition: Int) {
         val crtPosition = cycleCount - 1
-        val spriteCenter = register + 1
 
-        if ((cycleCount % 40).isAroundAndPositive(spriteCenter, 1)) {
+        if ((crtPosition % 40).isAroundBy(spritePosition, 1)) {
             pixels[crtPosition] = '#'
         }
     }
@@ -19,7 +18,7 @@ class CRT {
     }
 }
 
-private fun Int.isAroundAndPositive(i1: Int, margin: Int) = this in i1-margin..i1+margin && this > 0
+private fun Int.isAroundBy(i1: Int, margin: Int) = this in i1-margin..i1+margin
 
 private fun <E> List<E>.subListsOfSize(subListSize: Int): List<List<E>> {
     val subLists = mutableListOf<List<E>>()
